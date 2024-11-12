@@ -36,4 +36,27 @@
         WHERE board_id = #{boardId}
         ORDER BY board_id DESC
     </select>
+
+    <update id="updBoard">
+        UPDATE board
+        <set>
+            <if test="title != null and title != '' ">
+                title = #{title}
+            </if>
+            <if test="contents != null and contents != '' ">
+                ,   contents = #{contents}
+            </if>
+            <if test="writer != null and writer != '' ">
+                ,   writer = #{writer}
+            </if>
+        </set>
+        WHERE board_id = #{boardId}
+    </update>
+
+    <delete id="delBoard">
+        DELETE
+        FROM    board
+        WHERE   board_id = #{boardId}
+            AND writer   = #{writer}
+    </delete>
 </mapper>

@@ -1,7 +1,9 @@
 package com.green.board;
 
+import com.green.board.model.BoardDelReq;
 import com.green.board.model.BoardInsReq;
 import com.green.board.model.BoardSelRes;
+import com.green.board.model.BoardUpdReq;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -114,8 +116,8 @@ public class BoardController {
     private final  BoardService service;
 
     // @RequiredArgsConstruct 애노테이션을 붙이면 아래 생성자가 자동으로 만들어진다.
-//    public BoardController(BoardService boardService) {
-//        this.boardService = boardService;
+//    public BoardController(BoardService service) {
+//        this.boardService = service;
 //    }
 
     //insert(create)
@@ -135,5 +137,19 @@ public class BoardController {
     @GetMapping("/{boardId}")
     public BoardSelRes selBoardOne(@PathVariable int boardId) {
         return service.selBoardOne(boardId);
+    }
+
+    @PutMapping
+    public int updBoard(@RequestBody BoardUpdReq p) {
+        return service.updBoard(p);
+    }
+
+    /*
+    @ModelAttribute: FormData or Query String 데이터를 받을 수 있다.
+    생략하면 자동으로 붙는다.
+     */
+    @DeleteMapping
+    public int delBoard(@ModelAttribute BoardDelReq p) {
+        return service.delBoard(p);
     }
 }
